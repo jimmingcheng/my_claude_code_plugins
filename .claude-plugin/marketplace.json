@@ -8,15 +8,9 @@
   "plugins": [
     {
       "name": "ping-me",
+      "source": "./plugins/ping-me",
       "description": "On-demand notification skill for Claude Code with TTS support using ElevenLabs API",
-      "version": "1.0.0",
-      "author": {
-        "name": "Jimming Cheng",
-        "email": "jimming@gmail.com"
-      },
-      "tags": ["skill", "notifications", "tts", "elevenlabs", "accessibility", "ping"],
-      "source": "plugins/ping-me",
-      "skills": "plugins/ping-me/skills/skills.json"
+      "version": "1.0.0"
     }
   ]
 }
