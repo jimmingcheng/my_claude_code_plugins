@@ -8,6 +8,10 @@ yarn-error.log*
 dist/
 build/
 
+# Temporary files
+temp/
+*.wav
+
 # Runtime data
 pids
 *.pid
