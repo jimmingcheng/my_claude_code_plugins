@@ -1,0 +1,16 @@
+{
+  "name": "my-claude-code-plugins",
+  "description": "Community marketplace for Claude Code plugins",
+  "owner": {
+    "name": "Jimming Cheng",
+    "email": "jimming@gmail.com"
+  },
+  "plugins": [
+    {
+      "name": "ping-me",
+      "source": "./plugins/ping-me",
+      "description": "On-demand notification skill for Claude Code with TTS support using ElevenLabs API",
+      "version": "1.0.0"
+    }
+  ]
+}
