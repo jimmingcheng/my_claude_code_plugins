@@ -46,7 +46,7 @@ When using the `reason` parameter, the skill recognizes these contexts:
 
 ## Configuration
 
-Ensure you have an `.env` file in the skill directory with:
+Ensure you have an `.env` file in the plugin directory with:
 
 ```bash
 ELEVENLABS_API_KEY=your_api_key_here
@@ -55,38 +55,27 @@ TTS_ENABLED=true
 
 ## Execution
 
-When invoked, execute the TTS notification script from the skill directory:
+When invoked, execute the TTS notification script from the plugin directory:
 
 ```bash
-cd ~/.claude/skills/ping-me
+cd ${CLAUDE_PLUGIN_ROOT}/plugins/ping-me
 node dist/ping-me.js $ARGUMENTS
 ```
 
 The script will parse arguments in the format `message="text"` or `reason="context"`.
 
-## Supporting Files
+## Plugin Integration
 
-This skill includes:
-- `dist/ping-me.js` - Main TTS notification script (compiled from TypeScript)
-- `dist/` - All compiled JavaScript modules and dependencies
-- `src/` - Source TypeScript files for development and maintenance
+This skill is part of the ping-me plugin and uses the compiled TypeScript modules:
+
+- `dist/ping-me.js` - Main TTS notification script
+- `dist/` - All compiled JavaScript modules
+- `src/` - Source TypeScript files for development
 - `package.json` - Dependencies for ElevenLabs API integration
-- `package-lock.json` - Locked dependency versions
-- `tsconfig.json` - TypeScript compilation configuration
-- `.env.example` - Environment configuration template
 
 The script handles:
 - ElevenLabs API integration for speech synthesis
-- macOS audio playback via `afplay`
+- macOS audio playbook via `afplay`
 - Error handling and graceful failures
 - Temporary file cleanup
 - Contextual message generation
-
-## Installation
-
-To use this skill:
-
-1. Copy this directory to `~/.claude/skills/ping-me/`
-2. Install dependencies: `cd ~/.claude/skills/ping-me && npm install`
-3. Create `.env` file with your ElevenLabs API key
-4. The skill will be available as `/ping-me` in Claude Code
