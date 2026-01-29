@@ -1,0 +1,9 @@
+{
+  "name": "my-claude-code-plugins",
+  "description": "Community marketplace for Claude Code plugins",
+  "owner": {
+    "name": "Jimming Cheng",
+    "email": "jimming@gmail.com"
+  },
+  "plugins": []
+}

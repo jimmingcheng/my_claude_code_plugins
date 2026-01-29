@@ -1,0 +1,26 @@
+{
+  "name": "my-claude-code-plugins",
+  "version": "0.1.0",
+  "description": "Community marketplace for Claude Code plugins",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "dev": "ts-node src/index.ts",
+    "clean": "rm -rf dist"
+  },
+  "keywords": [
+    "claude-code",
+    "plugins",
+    "marketplace"
+  ],
+  "author": {
+    "name": "Jimming Cheng",
+    "email": "jimming@gmail.com"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "typescript": "^5.0.0",
+    "ts-node": "^10.9.0",
+    "@types/node": "^18.0.0"
+  }
+}
