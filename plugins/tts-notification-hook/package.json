@@ -1,0 +1,37 @@
+{
+  "name": "tts-notification-hook",
+  "version": "1.0.0",
+  "description": "Text-to-Speech notifications for Claude Code tool completions using ElevenLabs API",
+  "main": "dist/post-tool-use.js",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "clean": "rm -rf dist && rm -rf temp/*.wav",
+    "test": "node dist/post-tool-use.js"
+  },
+  "keywords": [
+    "claude-code",
+    "tts",
+    "notifications",
+    "elevenlabs",
+    "accessibility",
+    "hook"
+  ],
+  "author": {
+    "name": "Jimming Cheng",
+    "email": "jimming@gmail.com"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "node-fetch": "^2.7.0",
+    "dotenv": "^16.3.1"
+  },
+  "devDependencies": {
+    "typescript": "^5.3.3",
+    "@types/node": "^20.10.5",
+    "@types/node-fetch": "^2.6.9"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  }
+}

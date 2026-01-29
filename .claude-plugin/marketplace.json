@@ -5,5 +5,31 @@
     "name": "Jimming Cheng",
     "email": "jimming@gmail.com"
   },
-  "plugins": []
+  "plugins": [
+    {
+      "id": "tts-notification-hook",
+      "name": "TTS Notification Hook",
+      "description": "Text-to-Speech notifications for Claude Code tool completions using ElevenLabs API",
+      "version": "1.0.0",
+      "author": {
+        "name": "Jimming Cheng",
+        "email": "jimming@gmail.com"
+      },
+      "tags": ["tts", "notifications", "accessibility", "elevenlabs", "audio", "hooks"],
+      "requirements": {
+        "platform": "darwin",
+        "node": ">=16.0.0"
+      },
+      "path": "plugins/tts-notification-hook",
+      "hooks": "hooks/hooks.json",
+      "dependencies": ["node-fetch", "dotenv"],
+      "features": [
+        "Real-time TTS notifications for tool completions",
+        "ElevenLabs API integration with high-quality voices",
+        "Configurable tool filtering and custom messages",
+        "Background processing with error resilience",
+        "Automatic cleanup of temporary files"
+      ]
+    }
+  ]
 }
