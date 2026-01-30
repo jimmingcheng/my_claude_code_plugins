@@ -15,7 +15,7 @@ fi
 # Consume stdin (hook input) - not used but must be read
 cat > /dev/null
 
-MESSAGE="I need input from you"
+MESSAGE="Input needed"
 
 # Default settings
 VOICE_ID="${TTS_VOICE_ID:-Xb7hH8MSUJpSbSDYk0k2}"
