@@ -1,7 +1,6 @@
 #!/bin/bash
 # Permission Request Notification Hook
 # Plays a TTS notification when Claude Code shows a permission dialog
-# Speaks Claude's description of what it's doing
 
 # Check for API key (set via ~/.claude/settings.json env)
 if [[ -z "$ELEVENLABS_API_KEY" ]]; then
@@ -13,30 +12,10 @@ if [[ "$(uname)" != "Darwin" ]]; then
     exit 0
 fi
 
-# Read hook input JSON from stdin
-HOOK_INPUT=$(cat)
+# Consume stdin (hook input) - not used but must be read
+cat > /dev/null
 
-# Extract tool name and description
-TOOL_NAME=$(echo "$HOOK_INPUT" | jq -r '.tool_name // empty')
-DESCRIPTION=$(echo "$HOOK_INPUT" | jq -r '.tool_input.description // empty')
-
-# Build message based on available info
-if [[ -n "$DESCRIPTION" ]]; then
-    # Use Claude's description directly
-    MESSAGE="$DESCRIPTION"
-elif [[ "$TOOL_NAME" == "Edit" || "$TOOL_NAME" == "Write" ]]; then
-    # For file operations, try to get the filename
-    FILE_PATH=$(echo "$HOOK_INPUT" | jq -r '.tool_input.file_path // empty')
-    if [[ -n "$FILE_PATH" ]]; then
-        FILENAME=$(basename "$FILE_PATH")
-        MESSAGE="Permission needed to ${TOOL_NAME,,} $FILENAME"
-    else
-        MESSAGE="Permission needed for $TOOL_NAME"
-    fi
-else
-    # Fallback to tool name
-    MESSAGE="${TOOL_NAME:-Permission needed}"
-fi
+MESSAGE="I need input from you"
 
 # Default settings
 VOICE_ID="${TTS_VOICE_ID:-Xb7hH8MSUJpSbSDYk0k2}"

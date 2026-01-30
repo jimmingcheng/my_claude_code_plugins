@@ -18,10 +18,6 @@ while [[ $# -gt 0 ]]; do
             MESSAGE="${1#message=}"
             shift
             ;;
-        reason=*)
-            REASON="${1#reason=}"
-            shift
-            ;;
         *)
             # If no key=value format, treat as message
             MESSAGE="$1"
@@ -29,20 +25,6 @@ while [[ $# -gt 0 ]]; do
             ;;
     esac
 done
-
-# Generate message from reason if no direct message
-if [[ -z "$MESSAGE" || "$MESSAGE" == "Notification" ]] && [[ -n "$REASON" ]]; then
-    case "$REASON" in
-        task_completed) MESSAGE="Task completed successfully" ;;
-        build_finished) MESSAGE="Build completed" ;;
-        tests_passed) MESSAGE="All tests passing" ;;
-        deployment_done) MESSAGE="Deployment finished" ;;
-        error_fixed) MESSAGE="Error resolved" ;;
-        analysis_complete) MESSAGE="Analysis completed" ;;
-        processing_done) MESSAGE="Processing finished" ;;
-        *) MESSAGE="$REASON completed" ;;
-    esac
-fi
 
 # Check for API key
 if [[ -z "$ELEVENLABS_API_KEY" ]]; then

@@ -1,7 +1,7 @@
 ---
 name: ping-me
 description: Generate a single-sentence TTS notification with contextual message using ElevenLabs API
-argument-hint: [message="text"] [reason="context"]
+argument-hint: [message="text"]
 disable-model-invocation: false
 user-invocable: false
 allowed-tools: Bash(bash *), Bash(./scripts/*)
@@ -13,19 +13,17 @@ Generate high-quality text-to-speech notifications using ElevenLabs API and play
 
 ## Usage
 
-This skill can be invoked with optional arguments:
+This skill can be invoked with an optional message argument:
 
 ```bash
 /ping-me message="Task completed successfully"
 /ping-me message="Build finished with all tests passing"
-/ping-me reason="build_finished"
 /ping-me  # Default notification
 ```
 
 ## Parameters
 
 - `message`: Custom message to speak via TTS (must be a single sentence, maximum one sentence only)
-- `reason`: Context or reason for the notification (optional)
 
 ## Message Guidelines
 
@@ -34,19 +32,6 @@ This skill can be invoked with optional arguments:
 - Keep messages concise and focused
 - If you have multiple pieces of information, summarize into one sentence
 - Example: Instead of "Build completed. Tests passed. Ready for deployment." use "Build completed successfully with all tests passing"
-- Contextual reasons automatically generate single-sentence messages
-
-## Contextual Messages
-
-When using the `reason` parameter, the skill recognizes these contexts:
-
-- `task_completed` → "Task completed successfully"
-- `build_finished` → "Build completed"
-- `tests_passed` → "All tests passing"
-- `deployment_done` → "Deployment finished"
-- `error_fixed` → "Error resolved"
-- `analysis_complete` → "Analysis completed"
-- `processing_done` → "Processing finished"
 
 ## Requirements
 
@@ -83,4 +68,3 @@ The bundled `scripts/notify.sh` handles:
 - macOS audio playback via `afplay`
 - Error handling and graceful failures
 - Automatic temp file cleanup after 20 seconds
-- Contextual message generation from reason codes
