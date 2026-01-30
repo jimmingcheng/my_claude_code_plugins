@@ -5,6 +5,5 @@
   "author": {
     "name": "Jimming Cheng",
     "email": "jimming@gmail.com"
-  },
-  "hooks": "hooks/hooks.json"
+  }
 }
