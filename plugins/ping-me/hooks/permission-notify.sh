@@ -1,6 +1,7 @@
 #!/bin/bash
 # Permission Request Notification Hook
 # Plays a TTS notification when Claude Code shows a permission dialog
+# Speaks Claude's description of what it's doing
 
 # Load .env from plugin root if it exists
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -20,8 +21,32 @@ if [[ "$(uname)" != "Darwin" ]]; then
     exit 0
 fi
 
+# Read hook input JSON from stdin
+HOOK_INPUT=$(cat)
+
+# Extract tool name and description
+TOOL_NAME=$(echo "$HOOK_INPUT" | jq -r '.tool_name // empty')
+DESCRIPTION=$(echo "$HOOK_INPUT" | jq -r '.tool_input.description // empty')
+
+# Build message based on available info
+if [[ -n "$DESCRIPTION" ]]; then
+    # Use Claude's description directly
+    MESSAGE="$DESCRIPTION"
+elif [[ "$TOOL_NAME" == "Edit" || "$TOOL_NAME" == "Write" ]]; then
+    # For file operations, try to get the filename
+    FILE_PATH=$(echo "$HOOK_INPUT" | jq -r '.tool_input.file_path // empty')
+    if [[ -n "$FILE_PATH" ]]; then
+        FILENAME=$(basename "$FILE_PATH")
+        MESSAGE="Permission needed to ${TOOL_NAME,,} $FILENAME"
+    else
+        MESSAGE="Permission needed for $TOOL_NAME"
+    fi
+else
+    # Fallback to tool name
+    MESSAGE="${TOOL_NAME:-Permission needed}"
+fi
+
 # Default settings
-MESSAGE="Permission needed"
 VOICE_ID="${TTS_VOICE_ID:-Xb7hH8MSUJpSbSDYk0k2}"
 MODEL="${TTS_MODEL:-eleven_turbo_v2_5}"
 STABILITY="${TTS_STABILITY:-0.5}"
@@ -36,10 +61,13 @@ cleanup() {
 }
 trap cleanup EXIT
 
+# Escape message for JSON (handle quotes and special chars)
+ESCAPED_MESSAGE=$(echo "$MESSAGE" | jq -Rs '.')
+
 # Build JSON payload
 JSON_PAYLOAD=$(cat <<EOF
 {
-    "text": "$MESSAGE",
+    "text": $ESCAPED_MESSAGE,
     "model_id": "$MODEL",
     "voice_settings": {
         "stability": $STABILITY,
