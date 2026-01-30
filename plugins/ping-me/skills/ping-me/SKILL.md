@@ -4,7 +4,7 @@ description: Generate a single-sentence TTS notification with contextual message
 argument-hint: [message="text"] [reason="context"]
 disable-model-invocation: false
 user-invocable: false
-allowed-tools: Bash(cd *), Bash(node *), Bash(npm *)
+allowed-tools: Bash(bash *), Bash(./scripts/*)
 ---
 
 # Ping Me - TTS Notification Skill
@@ -51,41 +51,36 @@ When using the `reason` parameter, the skill recognizes these contexts:
 ## Requirements
 
 - **macOS**: Required for `afplay` audio support
-- **Node.js**: Version 16.0.0 or higher
-- **ElevenLabs API Key**: Set in environment variables
-- **Pre-compiled artifacts**: Ready for instant execution without build delays
+- **curl**: For API requests (pre-installed on macOS)
+- **ElevenLabs API Key**: Set as `ELEVENLABS_API_KEY` environment variable
 
 ## Configuration
 
-Ensure you have an `.env` file in the plugin directory with:
+Set the following environment variable:
 
 ```bash
-ELEVENLABS_API_KEY=your_api_key_here
-TTS_ENABLED=true
+export ELEVENLABS_API_KEY=your_api_key_here
 ```
+
+Optional settings:
+- `TTS_VOICE_ID` - ElevenLabs voice ID (default: Rachel)
+- `TTS_MODEL` - Model to use (default: eleven_turbo_v2_5)
+- `TTS_STABILITY` - Voice stability 0-1 (default: 0.5)
+- `TTS_SIMILARITY_BOOST` - Similarity boost 0-1 (default: 0.75)
 
 ## Execution
 
-When invoked, execute the TTS notification script from the plugin directory:
+Run the bundled notification script:
 
 ```bash
-cd "${CLAUDE_PLUGIN_ROOT}" && node dist/ping-me.js $ARGUMENTS
+bash ./scripts/notify.sh $ARGUMENTS
 ```
 
-The script will parse arguments in the format `message="text"` or `reason="context"`.
+## Script Details
 
-## Plugin Integration
-
-This skill is part of the ping-me plugin and uses the compiled TypeScript modules:
-
-- `dist/ping-me.js` - Main TTS notification script
-- `dist/` - All compiled JavaScript modules
-- `src/` - Source TypeScript files for development
-- `package.json` - Dependencies for ElevenLabs API integration
-
-The script handles:
+The bundled `scripts/notify.sh` handles:
 - ElevenLabs API integration for speech synthesis
-- macOS audio playbook via `afplay`
+- macOS audio playback via `afplay`
 - Error handling and graceful failures
-- Temporary file cleanup
-- Contextual message generation
+- Automatic temp file cleanup after 20 seconds
+- Contextual message generation from reason codes
