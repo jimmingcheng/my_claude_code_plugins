@@ -4,84 +4,40 @@ A Claude Code plugin that provides Text-to-Speech notifications using the Eleven
 
 ## Features
 
-- **Permission Request Alerts**: Automatically plays "Permission needed" when Claude shows a permission dialog
+- **Permission Request Alerts**: Automatically speaks Claude's description of what it's doing when a permission dialog appears
 - **On-Demand Notifications**: Claude can invoke `/ping-me` skill for custom messages
-- **ElevenLabs Integration**: High-quality speech synthesis
-- **Self-Contained**: Bash scripts with no dependencies beyond curl and afplay
 
 ## Requirements
 
-- **macOS**: Requires `afplay` for audio playback
-- **curl**: For API requests (pre-installed on macOS)
-- **ElevenLabs API Key**: Required for TTS service
+- macOS (requires `afplay` for audio playback)
+- jq (install via `brew install jq`)
+- ElevenLabs API Key
 
 ## Installation
 
-1. **Clone or download** this plugin to your Claude Code plugins directory
-2. **Configure environment**:
-   ```bash
-   cp plugins/ping-me/.env.example plugins/ping-me/.env
-   # Edit .env and add your ElevenLabs API key
+1. Install the plugin via Claude Code Plugin Manager or clone to your plugins directory
+2. Add your ElevenLabs API key to `~/.claude/settings.json`:
+   ```json
+   {
+     "env": {
+       "ELEVENLABS_API_KEY": "your_api_key_here"
+     }
+   }
    ```
-
-## Configuration
-
-Create a `.env` file in the plugin directory:
-
-```bash
-# Required
-ELEVENLABS_API_KEY=your_api_key_here
-
-# Optional
-TTS_VOICE_ID=Xb7hH8MSUJpSbSDYk0k2  # Rachel voice (default)
-TTS_MODEL=eleven_turbo_v2_5
-```
 
 Get your API key from: https://elevenlabs.io/app/settings/api-keys
 
 ## Usage
 
-### Automatic Permission Notifications
+The plugin automatically plays TTS when Claude shows a permission dialog (e.g., "Install package dependencies").
 
-Once installed, the plugin automatically plays a TTS notification whenever Claude Code shows a permission dialog. This helps you know when Claude needs your attention.
-
-### On-Demand Skill
-
-Claude can also invoke the `/ping-me` skill directly:
-
-```bash
-/ping-me message="Task completed successfully"
+You can also invoke it directly:
 ```
-
-## File Structure
-
-```
-plugins/ping-me/
-├── .claude-plugin/
-│   └── plugin.json           # Plugin metadata
-├── hooks/
-│   ├── hooks.json            # Hook configuration
-│   └── permission-notify.sh  # Permission notification script
-├── skills/
-│   └── ping-me/
-│       ├── SKILL.md          # Skill definition
-│       └── scripts/
-│           └── notify.sh     # TTS notification script
-├── .env.example              # Environment template
-└── README.md                 # This file
+/ping-me message="Task completed"
 ```
 
 ## Troubleshooting
 
-1. **No audio playback**: Ensure you're on macOS with `afplay` available
-2. **API errors**: Verify your ElevenLabs API key is correct and has credits
-3. **Hook not firing**: Restart Claude Code to load hook changes
-
-## License
-
-MIT License
-
-## Credits
-
-- Built for Claude Code by Jimming Cheng
-- Powered by ElevenLabs TTS API
+- **No audio**: Ensure `afplay` is available (macOS only)
+- **API errors**: Check your ElevenLabs API key and credits
+- **Hook not firing**: Restart Claude Code

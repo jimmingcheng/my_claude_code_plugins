@@ -3,15 +3,7 @@
 # Plays a TTS notification when Claude Code shows a permission dialog
 # Speaks Claude's description of what it's doing
 
-# Load .env from plugin root if it exists
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-PLUGIN_ROOT="$(dirname "$SCRIPT_DIR")"
-
-if [[ -f "$PLUGIN_ROOT/.env" ]]; then
-    source "$PLUGIN_ROOT/.env"
-fi
-
-# Check for API key
+# Check for API key (set via ~/.claude/settings.json env)
 if [[ -z "$ELEVENLABS_API_KEY" ]]; then
     exit 0  # Silently skip if no API key
 fi
