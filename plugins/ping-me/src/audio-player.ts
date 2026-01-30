@@ -126,18 +126,40 @@ export class AudioPlayer {
 
   /**
    * Play audio in background (non-blocking)
+   * Spawns a detached process and returns immediately without waiting
    */
   async playAudioBackground(filePath: string): Promise<void> {
-    // Start playback but don't wait for it to complete
-    this.playAudio(filePath).then(result => {
-      if (!result.success) {
-        this.logger.error(`Background audio playback failed: ${result.error}`);
-      }
-    }).catch(error => {
-      this.logger.error(`Background audio playback error: ${error}`);
+    if (!filePath) {
+      this.logger.error('Background audio playback failed: File path is required');
+      return;
+    }
+
+    // Check if file exists
+    try {
+      await fs.promises.access(filePath, fs.constants.F_OK);
+    } catch (error) {
+      this.logger.error(`Background audio playback failed: Audio file not found: ${filePath}`);
+      return;
+    }
+
+    // Check if we're on macOS
+    if (process.platform !== 'darwin') {
+      this.logger.error('Background audio playback failed: Only supported on macOS');
+      return;
+    }
+
+    this.logger.debug(`Starting background audio playback: ${filePath}`);
+
+    // Spawn a fully detached process that won't block Node.js exit
+    const childProcess = spawn('afplay', [filePath], {
+      stdio: 'ignore',
+      detached: true
     });
 
-    this.logger.debug(`Started background audio playback: ${filePath}`);
+    // Unref so Node.js can exit immediately without waiting for afplay
+    childProcess.unref();
+
+    this.logger.debug(`Background audio playback started (detached): ${filePath}`);
   }
 
   /**

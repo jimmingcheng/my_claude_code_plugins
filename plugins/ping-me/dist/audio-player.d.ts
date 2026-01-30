@@ -16,6 +16,7 @@ export declare class AudioPlayer {
     stopAudio(): void;
     /**
      * Play audio in background (non-blocking)
+     * Spawns a detached process and returns immediately without waiting
      */
     playAudioBackground(filePath: string): Promise<void>;
     /**
