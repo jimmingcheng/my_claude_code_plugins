@@ -77,8 +77,12 @@ class AudioPlayer {
             this.stopAudio();
             // Start afplay process
             this.currentProcess = (0, child_process_1.spawn)('afplay', [filePath], {
-                stdio: ['ignore', 'pipe', 'pipe']
+                stdio: ['ignore', 'pipe', 'pipe'],
+                detached: true,
+                windowsHide: true
             });
+            // Detach the process so main script can exit immediately
+            this.currentProcess.unref();
             const startTime = Date.now();
             this.currentProcess.on('close', (code) => {
                 const duration = Date.now() - startTime;
