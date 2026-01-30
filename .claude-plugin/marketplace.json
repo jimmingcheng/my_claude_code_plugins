@@ -10,7 +10,7 @@
       "name": "ping-me",
       "source": "./plugins/ping-me",
       "description": "On-demand notification skill for Claude Code with TTS support using ElevenLabs API",
-      "version": "1.1.0"
+      "version": "1.8.0"
     }
   ]
 }

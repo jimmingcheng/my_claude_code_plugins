@@ -1,78 +1,51 @@
 # Claude Code Plugin Marketplace
 
-A community marketplace for Claude Code plugins providing a scaffold for plugin discovery and management.
-
-## Overview
-
-This project serves as a minimal scaffold for a Claude Code plugin marketplace. It provides the essential infrastructure for plugin discovery while maintaining a simple, expandable architecture.
+A community marketplace for Claude Code plugins.
 
 ## Project Structure
 
 ```
 my_claude_code_plugins/
 ├── .claude-plugin/
-│   └── marketplace.json     # Marketplace configuration
-├── plugins/                 # Directory for plugins (currently empty)
-├── src/
-│   ├── index.ts            # Main entry point
-│   └── types.ts            # TypeScript interfaces
-├── package.json            # Node.js project configuration
-├── tsconfig.json           # TypeScript configuration
-└── README.md               # Project documentation
+│   └── marketplace.json     # Marketplace configuration listing available plugins
+├── plugins/
+│   └── ping-me/             # TTS notification plugin
+│       ├── .claude-plugin/
+│       │   └── plugin.json  # Plugin metadata
+│       ├── hooks/           # Claude Code hooks
+│       ├── skills/          # Claude Code skills
+│       └── README.md        # Plugin documentation
+├── CLAUDE.md                # Development notes
+└── README.md
 ```
 
-## Getting Started
+## Available Plugins
 
-### Prerequisites
+### ping-me
 
-- Node.js (v18 or higher)
-- npm or yarn
+On-demand notification skill for Claude Code with TTS support using ElevenLabs API.
 
-### Installation
+See [plugins/ping-me/README.md](plugins/ping-me/README.md) for details.
 
-1. Clone the repository
-2. Install dependencies:
-   ```bash
-   npm install
+## Adding Plugins
+
+To add a plugin to this marketplace:
+
+1. Create a directory under `plugins/` with your plugin name
+2. Include a `.claude-plugin/plugin.json` with metadata:
+   ```json
+   {
+     "name": "your-plugin-name",
+     "description": "Plugin description",
+     "version": "1.0.0",
+     "author": {
+       "name": "Your Name",
+       "email": "your@email.com"
+     }
+   }
    ```
-
-3. Build the project:
-   ```bash
-   npm run build
-   ```
-
-### Available Scripts
-
-- `npm run build` - Compile TypeScript to JavaScript
-- `npm run dev` - Run the project in development mode
-- `npm run clean` - Remove build artifacts
-
-## Marketplace Configuration
-
-The marketplace is configured via `.claude-plugin/marketplace.json`, which currently contains an empty plugins array ready for future expansion.
-
-## Development
-
-This is a minimal scaffold designed for future expansion. The project currently provides:
-
-- Basic TypeScript project setup
-- Marketplace configuration structure
-- Essential type definitions
-- Build and development tooling
-
-## Future Expansion
-
-This scaffold provides a foundation for adding:
-
-- Plugin validation and tooling
-- Templates and documentation
-- Testing infrastructure
-- CI/CD automation
-- Community contribution guidelines
-
-## Contributing
-
-This project is in its initial scaffold phase. Contributions and suggestions for the marketplace architecture are welcome.
+3. Add your plugin to `.claude-plugin/marketplace.json`
+4. Include a README.md documenting your plugin
 
 ## License
 
