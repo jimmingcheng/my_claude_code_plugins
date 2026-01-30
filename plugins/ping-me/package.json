@@ -1,6 +1,6 @@
 {
   "name": "ping-me",
-  "version": "1.2.0",
+  "version": "1.0.0",
   "description": "On-demand notification skill for Claude Code with TTS support using ElevenLabs API",
   "main": "dist/ping-me.js",
   "scripts": {
