@@ -1,9 +1,10 @@
 {
   "name": "ping-me",
   "description": "On-demand notification skill for Claude Code with TTS support using ElevenLabs API",
-  "version": "1.4.1",
+  "version": "1.5.0",
   "author": {
     "name": "Jimming Cheng",
     "email": "jimming@gmail.com"
-  }
+  },
+  "hooks": "hooks/hooks.json"
 }

@@ -1,0 +1,17 @@
+{
+  "description": "TTS notification when permission dialogs appear",
+  "hooks": {
+    "Notification": [
+      {
+        "matcher": "permission_prompt",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "${CLAUDE_PLUGIN_ROOT}/hooks/permission-notify.sh",
+            "timeout": 30
+          }
+        ]
+      }
+    ]
+  }
+}
