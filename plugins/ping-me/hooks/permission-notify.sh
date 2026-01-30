@@ -32,13 +32,10 @@ cleanup() {
 }
 trap cleanup EXIT
 
-# Escape message for JSON (handle quotes and special chars)
-ESCAPED_MESSAGE=$(echo "$MESSAGE" | jq -Rs '.')
-
 # Build JSON payload
 JSON_PAYLOAD=$(cat <<EOF
 {
-    "text": $ESCAPED_MESSAGE,
+    "text": "$MESSAGE",
     "model_id": "$MODEL",
     "voice_settings": {
         "stability": $STABILITY,

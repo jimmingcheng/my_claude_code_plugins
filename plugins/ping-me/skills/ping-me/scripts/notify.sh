@@ -11,20 +11,14 @@ MODEL="${TTS_MODEL:-eleven_turbo_v2_5}"
 STABILITY="${TTS_STABILITY:-0.5}"
 SIMILARITY_BOOST="${TTS_SIMILARITY_BOOST:-0.75}"
 
-# Parse arguments
-while [[ $# -gt 0 ]]; do
-    case $1 in
-        message=*)
-            MESSAGE="${1#message=}"
-            shift
-            ;;
-        *)
-            # If no key=value format, treat as message
-            MESSAGE="$1"
-            shift
-            ;;
-    esac
-done
+# Parse arguments - capture all args as message
+if [[ $# -gt 0 ]]; then
+    if [[ "$1" == message=* ]]; then
+        MESSAGE="${1#message=}"
+    else
+        MESSAGE="$*"
+    fi
+fi
 
 # Check for API key
 if [[ -z "$ELEVENLABS_API_KEY" ]]; then
