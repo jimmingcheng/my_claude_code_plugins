@@ -235,7 +235,7 @@ export class TTSService {
     try {
       const files = await fs.promises.readdir(this.config.tempDir);
       const now = Date.now();
-      const maxAge = 3600000; // 1 hour
+      const maxAge = 20000; // 20 seconds
 
       for (const file of files) {
         if (file.startsWith('tts_') && file.endsWith('.wav')) {

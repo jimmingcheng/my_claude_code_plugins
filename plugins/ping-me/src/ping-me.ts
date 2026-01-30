@@ -97,7 +97,7 @@ async function executeSkill(): Promise<SkillResult> {
     if (config?.cleanup) {
       const tempDir = config.tempDir;
       setImmediate(() => {
-        cleanupTempFiles(tempDir, 3600000); // 1 hour
+        cleanupTempFiles(tempDir, 20000); // 20 seconds
       });
     }
 
@@ -115,7 +115,7 @@ async function executeSkill(): Promise<SkillResult> {
     // If there's a config and cleanup is enabled, try to cleanup anyway
     if (config && config.cleanup) {
       try {
-        cleanupTempFiles(config.tempDir, 3600000);
+        cleanupTempFiles(config.tempDir, 20000);
       } catch (cleanupError) {
         logger.warn(`Cleanup failed: ${cleanupError}`);
       }

@@ -84,7 +84,7 @@ async function executeSkill() {
         if (config?.cleanup) {
             const tempDir = config.tempDir;
             setImmediate(() => {
-                (0, utils_1.cleanupTempFiles)(tempDir, 3600000); // 1 hour
+                (0, utils_1.cleanupTempFiles)(tempDir, 20000); // 20 seconds
             });
         }
         logger.info(`TTS notification completed successfully`);
@@ -99,7 +99,7 @@ async function executeSkill() {
         // If there's a config and cleanup is enabled, try to cleanup anyway
         if (config && config.cleanup) {
             try {
-                (0, utils_1.cleanupTempFiles)(config.tempDir, 3600000);
+                (0, utils_1.cleanupTempFiles)(config.tempDir, 20000);
             }
             catch (cleanupError) {
                 logger.warn(`Cleanup failed: ${cleanupError}`);
