@@ -1,51 +1,33 @@
-# Claude Code Plugin Marketplace
+# My Claude Code Plugins
 
-A community marketplace for Claude Code plugins.
+A personal collection of Claude Code plugins.
 
-## Project Structure
-
-```
-my_claude_code_plugins/
-├── .claude-plugin/
-│   └── marketplace.json     # Marketplace configuration listing available plugins
-├── plugins/
-│   └── ping-me/             # TTS notification plugin
-│       ├── .claude-plugin/
-│       │   └── plugin.json  # Plugin metadata
-│       ├── hooks/           # Claude Code hooks
-│       ├── skills/          # Claude Code skills
-│       └── README.md        # Plugin documentation
-├── CLAUDE.md                # Development notes
-└── README.md
-```
-
-## Available Plugins
+## Plugins
 
 ### ping-me
 
-On-demand notification skill for Claude Code with TTS support using ElevenLabs API.
+TTS notification plugin using the ElevenLabs API.
 
-See [plugins/ping-me/README.md](plugins/ping-me/README.md) for details.
+**Features:**
+- Plays "Input needed" audio alert when permission dialogs appear
+- Ask Claude to ping you during conversation (e.g., "When you're done with this task, ping me")
 
-## Adding Plugins
+**Requirements:**
+- macOS (uses `afplay` for audio)
+- ElevenLabs API Key
 
-To add a plugin to this marketplace:
+**Setup:**
 
-1. Create a directory under `plugins/` with your plugin name
-2. Include a `.claude-plugin/plugin.json` with metadata:
-   ```json
-   {
-     "name": "your-plugin-name",
-     "description": "Plugin description",
-     "version": "1.0.0",
-     "author": {
-       "name": "Your Name",
-       "email": "your@email.com"
-     }
-   }
-   ```
-3. Add your plugin to `.claude-plugin/marketplace.json`
-4. Include a README.md documenting your plugin
+Add your API key to `~/.claude/settings.json`:
+```json
+{
+  "env": {
+    "ELEVENLABS_API_KEY": "your_key"
+  }
+}
+```
+
+Get a key: https://elevenlabs.io/app/settings/api-keys
 
 ## License
 
