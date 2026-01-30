@@ -2,8 +2,8 @@
 name: ping-me
 description: Generate a TTS notification with contextual message using ElevenLabs API
 argument-hint: [message="text"] [reason="context"]
-disable-model-invocation: true
-user-invocable: true
+disable-model-invocation: false
+user-invocable: false
 allowed-tools: Bash(node *)
 ---
 
@@ -58,8 +58,7 @@ TTS_ENABLED=true
 When invoked, execute the TTS notification script from the plugin directory:
 
 ```bash
-cd ${CLAUDE_PLUGIN_ROOT}/plugins/ping-me
-node dist/ping-me.js $ARGUMENTS
+cd "${CLAUDE_PLUGIN_ROOT}" && node dist/ping-me.js $ARGUMENTS
 ```
 
 The script will parse arguments in the format `message="text"` or `reason="context"`.

@@ -5,7 +5,8 @@ yarn-debug.log*
 yarn-error.log*
 
 # Build output
-dist/
+# Keep dist/ files committed for plugin deployment
+# dist/
 build/
 
 # Temporary files
