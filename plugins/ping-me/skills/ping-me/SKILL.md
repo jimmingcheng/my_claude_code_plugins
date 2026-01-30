@@ -1,6 +1,6 @@
 ---
 name: ping-me
-description: Generate a TTS notification with contextual message using ElevenLabs API
+description: Generate a single-sentence TTS notification with contextual message using ElevenLabs API
 argument-hint: [message="text"] [reason="context"]
 disable-model-invocation: false
 user-invocable: false
@@ -17,14 +17,24 @@ This skill can be invoked with optional arguments:
 
 ```bash
 /ping-me message="Task completed successfully"
+/ping-me message="Build finished with all tests passing"
 /ping-me reason="build_finished"
 /ping-me  # Default notification
 ```
 
 ## Parameters
 
-- `message`: Custom message to speak via TTS (optional)
+- `message`: Custom message to speak via TTS (must be a single sentence, maximum one sentence only)
 - `reason`: Context or reason for the notification (optional)
+
+## Message Guidelines
+
+**Important: All messages must be single sentences only.**
+
+- Keep messages concise and focused
+- If you have multiple pieces of information, summarize into one sentence
+- Example: Instead of "Build completed. Tests passed. Ready for deployment." use "Build completed successfully with all tests passing"
+- Contextual reasons automatically generate single-sentence messages
 
 ## Contextual Messages
 
