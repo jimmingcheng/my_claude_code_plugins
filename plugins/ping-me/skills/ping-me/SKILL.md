@@ -43,6 +43,7 @@ When using the `reason` parameter, the skill recognizes these contexts:
 - **macOS**: Required for `afplay` audio support
 - **Node.js**: Version 16.0.0 or higher
 - **ElevenLabs API Key**: Set in environment variables
+- **Pre-compiled artifacts**: Ready for instant execution without build delays
 
 ## Configuration
 
