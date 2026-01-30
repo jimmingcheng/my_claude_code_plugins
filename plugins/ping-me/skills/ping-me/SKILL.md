@@ -4,7 +4,7 @@ description: Generate a single-sentence TTS notification with contextual message
 argument-hint: [message="text"] [reason="context"]
 disable-model-invocation: false
 user-invocable: false
-allowed-tools: Bash(node *)
+allowed-tools: Bash(cd *), Bash(npm install), Bash(node *)
 ---
 
 # Ping Me - TTS Notification Skill
