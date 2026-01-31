@@ -1,6 +1,6 @@
 ---
 name: ping-me
-description: Generate a single-sentence TTS notification with contextual message using ElevenLabs API
+description: Generate a single-sentence TTS notification with contextual message using ElevenLabs API or macOS say
 argument-hint: [message="text"]
 disable-model-invocation: false
 user-invocable: false
@@ -9,7 +9,7 @@ allowed-tools: Bash(bash *), Bash(./scripts/*)
 
 # Ping Me - TTS Notification Skill
 
-Generate high-quality text-to-speech notifications using ElevenLabs API and play them on macOS.
+Generate text-to-speech notifications and play them on macOS. Uses ElevenLabs API for premium voices, or falls back to macOS's built-in `say` command for zero-configuration usage.
 
 ## Usage
 
@@ -35,23 +35,31 @@ This skill can be invoked with an optional message argument:
 
 ## Requirements
 
-- **macOS**: Required for `afplay` audio support
-- **curl**: For API requests (pre-installed on macOS)
-- **ElevenLabs API Key**: Set as `ELEVENLABS_API_KEY` environment variable
+- **macOS**: Required for audio playback
 
-## Configuration
+## TTS Backends
 
-Set the following environment variable:
+### ElevenLabs (Optional - Premium Quality)
+
+Set the API key for high-quality neural voices:
 
 ```bash
 export ELEVENLABS_API_KEY=your_api_key_here
 ```
 
-Optional settings:
+ElevenLabs settings:
 - `TTS_VOICE_ID` - ElevenLabs voice ID (default: Rachel)
 - `TTS_MODEL` - Model to use (default: eleven_turbo_v2_5)
 - `TTS_STABILITY` - Voice stability 0-1 (default: 0.5)
 - `TTS_SIMILARITY_BOOST` - Similarity boost 0-1 (default: 0.75)
+
+### macOS `say` (Fallback - No Setup)
+
+When `ELEVENLABS_API_KEY` is not set, the plugin automatically uses macOS's built-in `say` command. No configuration required.
+
+macOS say settings:
+- `TTS_SAY_VOICE` - Voice name (default: Samantha). Run `say -v ?` to list available voices.
+- `TTS_SAY_RATE` - Words per minute (default: 175)
 
 ## Execution
 

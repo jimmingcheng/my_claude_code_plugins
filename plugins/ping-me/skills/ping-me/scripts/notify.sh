@@ -1,6 +1,6 @@
 #!/bin/bash
 # Ping Me - TTS Notification Script
-# Uses ElevenLabs API to generate and play TTS audio on macOS
+# Uses ElevenLabs API or macOS say command to play TTS audio
 
 set -e
 
@@ -11,6 +11,10 @@ MODEL="${TTS_MODEL:-eleven_turbo_v2_5}"
 STABILITY="${TTS_STABILITY:-0.5}"
 SIMILARITY_BOOST="${TTS_SIMILARITY_BOOST:-0.75}"
 
+# macOS say fallback settings
+SAY_VOICE="${TTS_SAY_VOICE:-Samantha}"
+SAY_RATE="${TTS_SAY_RATE:-175}"
+
 # Parse arguments - capture all args as message
 if [[ $# -gt 0 ]]; then
     if [[ "$1" == message=* ]]; then
@@ -20,16 +24,23 @@ if [[ $# -gt 0 ]]; then
     fi
 fi
 
-# Check for API key
-if [[ -z "$ELEVENLABS_API_KEY" ]]; then
-    echo '{"success":false,"message":"ELEVENLABS_API_KEY environment variable is required"}'
-    exit 1
-fi
-
 # Check for macOS
 if [[ "$(uname)" != "Darwin" ]]; then
     echo '{"success":false,"message":"Audio playback requires macOS"}'
     exit 1
+fi
+
+# Function: Use macOS say command as fallback
+use_macos_say() {
+    say -v "$SAY_VOICE" -r "$SAY_RATE" "$MESSAGE" &
+    disown
+    echo "{\"success\":true,\"message\":\"TTS notification played (say): \\\"$MESSAGE\\\"\"}"
+    exit 0
+}
+
+# If no API key, use macOS say fallback
+if [[ -z "$ELEVENLABS_API_KEY" ]]; then
+    use_macos_say
 fi
 
 # Create temp file

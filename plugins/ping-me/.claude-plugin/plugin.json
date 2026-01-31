@@ -1,7 +1,7 @@
 {
   "name": "ping-me",
-  "description": "On-demand notification skill for Claude Code with TTS support using ElevenLabs API",
-  "version": "1.12.0",
+  "description": "On-demand notification skill for Claude Code with TTS support using ElevenLabs API or macOS say",
+  "version": "1.13.0",
   "author": {
     "name": "Jimming Cheng",
     "email": "jimming@gmail.com"

@@ -2,11 +2,6 @@
 # Permission Request Notification Hook
 # Plays a TTS notification when Claude Code shows a permission dialog
 
-# Check for API key (set via ~/.claude/settings.json env)
-if [[ -z "$ELEVENLABS_API_KEY" ]]; then
-    exit 0  # Silently skip if no API key
-fi
-
 # Check for macOS
 if [[ "$(uname)" != "Darwin" ]]; then
     exit 0
@@ -17,7 +12,23 @@ cat > /dev/null
 
 MESSAGE="Input needed"
 
-# Default settings
+# macOS say fallback settings
+SAY_VOICE="${TTS_SAY_VOICE:-Samantha}"
+SAY_RATE="${TTS_SAY_RATE:-175}"
+
+# Function: Use macOS say command as fallback
+use_macos_say() {
+    say -v "$SAY_VOICE" -r "$SAY_RATE" "$MESSAGE" &
+    disown
+    exit 0
+}
+
+# If no API key, use macOS say fallback
+if [[ -z "$ELEVENLABS_API_KEY" ]]; then
+    use_macos_say
+fi
+
+# ElevenLabs settings
 VOICE_ID="${TTS_VOICE_ID:-Xb7hH8MSUJpSbSDYk0k2}"
 MODEL="${TTS_MODEL:-eleven_turbo_v2_5}"
 STABILITY="${TTS_STABILITY:-0.5}"
