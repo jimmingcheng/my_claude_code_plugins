@@ -13,8 +13,10 @@ TTS notification plugin using the ElevenLabs API.
 - Ask Claude to ping you during conversation (e.g., "When you're done with this task, ping me")
 
 **Requirements:**
-- macOS (uses `afplay` for audio)
-- ElevenLabs API Key
+- macOS
+
+**Optional:**
+- ElevenLabs API Key (for premium voices; falls back to macOS `say` if not set)
 
 **Setup:**
 
