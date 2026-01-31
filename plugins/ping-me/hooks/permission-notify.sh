@@ -23,12 +23,13 @@ MODEL="${TTS_MODEL:-eleven_turbo_v2_5}"
 STABILITY="${TTS_STABILITY:-0.5}"
 SIMILARITY_BOOST="${TTS_SIMILARITY_BOOST:-0.75}"
 
-# Create temp file
-TEMP_FILE=$(mktemp /tmp/tts_XXXXXX.mp3)
+# Create temp file (macOS mktemp doesn't support extensions in template)
+TEMP_DIR=$(mktemp -d)
+TEMP_FILE="$TEMP_DIR/tts.mp3"
 
 # Cleanup function
 cleanup() {
-    (sleep 20 && rm -f "$TEMP_FILE") &
+    (sleep 20 && rm -rf "$TEMP_DIR") &
 }
 trap cleanup EXIT
 
