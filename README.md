@@ -31,19 +31,6 @@ Add your API key to `~/.claude/settings.json`:
 
 Get a key: https://elevenlabs.io/app/settings/api-keys
 
-### iterm2-tab-title
-
-Automatically updates your iTerm2 tab title to show what Claude Code is doing.
-
-**Features:**
-- Shows your prompt text when Claude is working
-- Shows "idle" with project directory when Claude finishes
-- Shows notification message when Claude needs input
-
-**Requirements:**
-- iTerm2 (or any terminal supporting OSC escape sequences)
-- `jq` (for parsing hook input)
-
 ## License
 
 MIT

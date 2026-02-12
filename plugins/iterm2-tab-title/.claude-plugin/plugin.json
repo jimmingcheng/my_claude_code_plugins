@@ -1,9 +1,0 @@
-{
-  "name": "iterm2-tab-title",
-  "description": "Automatically updates iTerm2 tab title to reflect Claude Code activity",
-  "version": "1.0.0",
-  "author": {
-    "name": "Jimming Cheng",
-    "email": "jimming@gmail.com"
-  }
-}

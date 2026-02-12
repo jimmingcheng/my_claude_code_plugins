@@ -11,12 +11,6 @@
       "source": "./plugins/ping-me",
       "description": "On-demand notification skill for Claude Code with TTS support using ElevenLabs API",
       "version": "1.8.0"
-    },
-    {
-      "name": "iterm2-tab-title",
-      "source": "./plugins/iterm2-tab-title",
-      "description": "Automatically updates iTerm2 tab title to reflect Claude Code activity",
-      "version": "1.0.0"
     }
   ]
 }

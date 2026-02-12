@@ -2,17 +2,12 @@
 
 ## Git Workflow
 
-### Before Pushing
+### Deploying
 
-**Always bump plugin.json version** before pushing changes to ensure Claude Code Plugin Manager recognizes updates:
+When asked to **deploy**, do the following:
 
-```bash
-# Update version in plugin.json
-vim plugins/plugin-name/.claude-plugin/plugin.json  # version: "1.x.x"
-
-# Commit and push
-git add . && git commit -m "Bump version to 1.x.x"
-git push
-```
+1. Bump the `version` field in the relevant `plugins/<plugin-name>/.claude-plugin/plugin.json`
+2. Commit the changes
+3. Push to the remote
 
 Claude Code Plugin Manager uses the `version` field in `plugin.json` to detect available updates.
