@@ -7,10 +7,20 @@ if [[ "$(uname)" != "Darwin" ]]; then
     exit 0
 fi
 
-# Consume stdin (hook input) - not used but must be read
-cat > /dev/null
+# Parse hook input for context
+INPUT=$(cat)
+TOOL_NAME=$(echo "$INPUT" | jq -r '.tool_name // empty' 2>/dev/null)
+TOOL_INPUT=$(echo "$INPUT" | jq -r '.tool_input.command // .tool_input.file_path // empty' 2>/dev/null)
 
-MESSAGE="Input needed"
+if [[ -n "$TOOL_NAME" && -n "$TOOL_INPUT" ]]; then
+    # Truncate long tool input for TTS
+    SHORT_INPUT=$(echo "$TOOL_INPUT" | head -c 80)
+    MESSAGE="Permission needed for ${TOOL_NAME}: ${SHORT_INPUT}"
+elif [[ -n "$TOOL_NAME" ]]; then
+    MESSAGE="Permission needed for ${TOOL_NAME}"
+else
+    MESSAGE="Input needed"
+fi
 
 # macOS say fallback settings
 SAY_VOICE="${TTS_SAY_VOICE:-Samantha}"
